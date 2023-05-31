@@ -9,4 +9,13 @@
 
     <string name="attraction_address">Address</string>
     <string name="attraction_modify">Last Update Time\n%s</string>
+    <string name="language_en">EN</string>
+    <string name="language_jp">jp</string>
+    <string name="language_zh_tw">繁體中文</string>
+    <string name="language_zh_cn">简体中文</string>
+    <string name="language_ko">ko</string>
+    <string name="language_es">es</string>
+    <string name="language_id">id</string>
+    <string name="language_th">th</string>
+    <string name="language_vi">vi</string>
 </resources>

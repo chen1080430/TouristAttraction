@@ -2,24 +2,26 @@ package com.mason.touristattractionshw.ui.attraction
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.mason.touristattractionshw.MainActivity
 import com.mason.touristattractionshw.R
 import com.mason.touristattractionshw.databinding.FragmentAttractionListBinding
-import com.mason.touristattractionshw.model.Attraction
 import com.mason.touristattractionshw.model.AttractionAdapter
 
 class AttractionListFragment : Fragment() {
 
     private var LANG: String = "zh-tw"
     private lateinit var attractionAdapter: AttractionAdapter
-    private var _binding: FragmentAttractionListBinding ?= null
+    private var _binding: FragmentAttractionListBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -57,28 +59,71 @@ class AttractionListFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.language_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_language -> {
-                attractionViewModel.refreshAttractions("en")
+                showPopupMenu()
             }
+
             else -> {}
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun addTestAttraction() {
-        var testAttractionList = mutableListOf<Attraction>()
-        testAttractionList.add(Attraction(id = 1, name = "test1"))
-        testAttractionList.add(Attraction(id = 2, name = "test2"))
-        testAttractionList.add(Attraction(id = 3, name = "test3"))
-        testAttractionList.add(Attraction(id = 4, name = "test4"))
-        testAttractionList.add(Attraction(id = 5, name = "test5"))
-        attractionAdapter.submitList(testAttractionList)
+    private fun showPopupMenu() {
+        PopupMenu(
+            requireActivity(),
+            (requireActivity() as MainActivity).findViewById(R.id.nav_view),
+            Gravity.RIGHT
+        ).apply {
+            menuInflater.inflate(R.menu.language_menu, menu)
+            setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.language_en -> {
+                        LANG = "en"
+                    }
+
+                    R.id.language_zh_tw -> {
+                        LANG = "zh-tw"
+                    }
+
+                    R.id.language_zh_cn -> {
+                        LANG = "zh-cn"
+                    }
+
+                    R.id.language_jp -> {
+                        LANG = "jp"
+                    }
+
+                    R.id.language_ko -> {
+                        LANG = "ko"
+                    }
+
+                    R.id.language_es -> {
+                        LANG = "es"
+                    }
+
+                    R.id.language_th -> {
+                        LANG = "th"
+                    }
+
+                    R.id.language_id -> {
+                        LANG = "id"
+                    }
+
+                    else -> false
+                }
+                attractionViewModel.refreshAttractions(LANG)
+                true
+
+            }
+
+            show()
+        }
     }
 
 
