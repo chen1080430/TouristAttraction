@@ -1,0 +1,33 @@
+package com.mason.touristattractionshw.model
+
+data class Attraction(
+    var id: Int,
+    var name: String,
+    var name_zh: String = "",
+    var open_status: Int = -1,
+    var introduction: String = "",
+    var open_time: String = "",
+    var zipcode: String = "",
+    var distric: String = "",
+    var address: String = "",
+    var tel: String = "",
+    var fax: String = "",
+    var email: String = "",
+    var months: String = "",
+    var nlat: Double = 0.0,
+    var elong: Double = 0.0,
+    var official_site: String = "",
+    var facebook: String = "",
+    var ticket: String = "",
+    var remind: String = "",
+    var staytime: String = "",
+    var modified: String = "",
+    var url: String = "",
+    var category: List<AttractionCategory> = mutableListOf(),
+    var target: List<AttractionTarget> = mutableListOf(),
+    var service: List<AttractionService> = mutableListOf(),
+    var friendly: List<AttractionFriendly> = mutableListOf(),
+    var images: List<AttractionImage> = mutableListOf(),
+    var files: List<Any> = mutableListOf(),
+    var links: List<Link> =  mutableListOf()
+)

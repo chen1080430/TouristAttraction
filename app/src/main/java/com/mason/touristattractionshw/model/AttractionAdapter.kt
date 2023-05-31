@@ -1,0 +1,64 @@
+package com.mason.touristattractionshw.model
+
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.mason.touristattractionshw.databinding.AttractionItemBinding
+import com.mason.touristattractionshw.ui.attraction.AttractionListFragmentDirections
+import com.mason.touristattractionshw.ui.attraction.AttractionViewModel
+import com.squareup.picasso.Picasso
+
+class AttractionAdapter(val attractionViewModel: AttractionViewModel) : ListAdapter<Attraction, AttractionAdapter.ViewHolder>(AttractionDiffCallback()){
+
+    class ViewHolder (val binding:AttractionItemBinding):RecyclerView.ViewHolder(binding.root){
+        fun bind(attractionViewModel: AttractionViewModel, item: Attraction) {
+            binding.apply {
+                layoutAttraction = item
+                layoutViewModel = attractionViewModel
+                executePendingBindings()
+            }
+            binding.attractionLayout.setOnClickListener { view ->
+                Log.d(TAG, "XXXXX> bind: navigation to detail attraciton: ${item.id}")
+                var navigationAttractionDetail =
+                    AttractionListFragmentDirections.navigationAttractionDetail(item.id)
+
+                view.findNavController().navigate(navigationAttractionDetail)
+            }
+            if (item.images.isNotEmpty()) {
+                Picasso.get().load(item.images[0].src).resize(300, 300).into(binding.imageViewPhoto)
+            }
+
+        }
+
+
+    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        var binding = AttractionItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        var item = getItem(position)
+        holder.bind(attractionViewModel,  item)
+    }
+
+    companion object {
+        private const val TAG = "AttractionAdapter"
+    }
+
+}
+
+class AttractionDiffCallback : DiffUtil.ItemCallback<Attraction>(){
+    override fun areItemsTheSame(oldItem: Attraction, newItem: Attraction): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Attraction, newItem: Attraction): Boolean {
+        return oldItem == newItem
+    }
+
+}
