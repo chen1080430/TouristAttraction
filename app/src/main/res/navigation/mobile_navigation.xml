@@ -22,7 +22,7 @@
         android:label="@string/app_name"
         >
         <argument
-            android:name="@string/attraction_id"
+            android:name="attraction_id"
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>

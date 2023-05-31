@@ -10,20 +10,21 @@ import com.mason.touristattractionshw.R
 import com.mason.touristattractionshw.databinding.AttractionPhotosItemBinding
 import com.mason.touristattractionshw.model.Attraction
 import com.mason.touristattractionshw.model.AttractionAdapter
+import com.mason.touristattractionshw.model.AttractionImage
 import com.squareup.picasso.Picasso
 
-class AttractionDetailComparator : DiffUtil.ItemCallback<Attraction>() {
-    override fun areItemsTheSame(oldItem: Attraction, newItem: Attraction): Boolean {
-        return oldItem.id == newItem.id
+class AttractionDetailComparator : DiffUtil.ItemCallback<AttractionImage>() {
+    override fun areItemsTheSame(oldItem: AttractionImage, newItem: AttractionImage): Boolean {
+        return oldItem.src == newItem.src
     }
 
-    override fun areContentsTheSame(oldItem: Attraction, newItem: Attraction): Boolean {
+    override fun areContentsTheSame(oldItem: AttractionImage, newItem: AttractionImage): Boolean {
         return oldItem == newItem
     }
 
 }
 
-class AttractionPhotoAdapter(val viewModel: AttractionDetailViewModel) : ListAdapter<Attraction, AttractionPhotoAdapter.AttractionDetailViewHolder>(AttractionDetailComparator()) {
+class AttractionPhotoAdapter(val viewModel: AttractionDetailViewModel) : ListAdapter<AttractionImage, AttractionPhotoAdapter.AttractionDetailViewHolder>(AttractionDetailComparator()) {
     class AttractionDetailViewHolder(val binding: AttractionPhotosItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
     }
@@ -44,8 +45,14 @@ class AttractionPhotoAdapter(val viewModel: AttractionDetailViewModel) : ListAda
 
     override fun onBindViewHolder(holder: AttractionDetailViewHolder, position: Int) {
         var item = getItem(position)
-        if (item.images.isNotEmpty()) {
-            Picasso.get().load(item.images[0].src).into(holder.binding.imageViewDetailPhoto)
+        var screenWidth = holder.itemView.context.resources.displayMetrics.widthPixels
+        item.let {
+            Picasso.get().load(item.src)
+//                .fit()
+//                .resize(1000, 1000)
+                .resize(screenWidth, 0)
+                .onlyScaleDown()
+                .into(holder.binding.imageViewDetailPhoto)
         }
     }
 

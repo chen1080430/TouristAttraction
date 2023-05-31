@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="layout_attraction"
             type="com.mason.touristattractionshw.model.Attraction" />
+
         <variable
             name="layout_viewModel"
             type="com.mason.touristattractionshw.ui.attraction.AttractionViewModel" />
@@ -16,59 +18,70 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/attraction_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/attraction_item_height"
+        android:paddingHorizontal="@dimen/textview_vertical_padding"
+        android:paddingVertical="@dimen/textview_vertical_padding">
 
 
         <ImageView
             android:id="@+id/imageView_photo"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/attraction_item_width"
+            android:layout_height="@dimen/attraction_item_height"
+            android:layout_marginHorizontal="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <TextView
             android:id="@+id/textView_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{layout_attraction.name}"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:maxLines="2"
+            android:layout_marginHorizontal="@dimen/textview_vertical_padding"
             android:ellipsize="end"
-            app:layout_constraintWidth_min="100dp"
+            android:maxLines="2"
+            android:text="@{layout_attraction.name}"
+            android:textSize="13sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/textView_introduce"
             app:layout_constraintEnd_toStartOf="@id/imageView_arrow"
-            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintHeight="wrap_content_constrained"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@+id/imageView_photo"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.2" />
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintWidth="wrap_content_constrained" />
 
         <TextView
             android:id="@+id/textView_introduce"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{layout_attraction.introduction}"
+            android:layout_marginHorizontal="@dimen/textview_vertical_padding"
             android:layout_marginTop="4dp"
-            android:maxLines="4"
             android:ellipsize="end"
-            app:layout_constraintWidth_min="100dp"
+            android:maxLines="3"
+            android:text="@{layout_attraction.introduction}"
+            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/imageView_arrow"
-            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintHeight="wrap_content_constrained"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@+id/imageView_photo"
             app:layout_constraintTop_toBottomOf="@+id/textView_name"
-            app:layout_constraintVertical_bias="0.2" />
+            app:layout_constraintWidth="wrap_content_constrained" />
 
         <ImageView
             android:id="@+id/imageView_arrow"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView_name"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth="wrap_content"
             app:srcCompat="@android:drawable/ic_menu_send" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,12 +1,17 @@
 package com.mason.touristattractionshw.ui.attraction
 
+import android.graphics.pdf.PdfDocument.PageInfo
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.mason.touristattractionshw.R
 import com.mason.touristattractionshw.databinding.FragmentAttractionDetailBinding
 
@@ -25,7 +30,7 @@ class AttractionDetailFragment : Fragment() {
     private var param_id: Int = -1
     private var param2: String? = null
 
-    private val attractionDetailViewmModel by activityViewModels<AttractionDetailViewModel>()
+    private val attractionDetailViewModel by activityViewModels<AttractionDetailViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +38,7 @@ class AttractionDetailFragment : Fragment() {
         arguments?.let {
             param_id = it.getInt(ARG_ATTRACTION_ID)
             param2 = it.getString(ARG_PARAM2)
+            Log.d(Companion.TAG, "XXXXX> onCreate: param_id = $param_id , title: $param2")
         }
     }
 
@@ -48,12 +54,26 @@ class AttractionDetailFragment : Fragment() {
             false
         )
         binding.apply {
-            layoutAttraction = attractionDetailViewmModel.getAttraction(param_id)
+            layoutAttraction = attractionDetailViewModel.getAttraction(param_id)
             lifecycleOwner = viewLifecycleOwner
         }
 
-        attractionPhotoAdapter = AttractionPhotoAdapter(attractionDetailViewmModel)
+        attractionPhotoAdapter = AttractionPhotoAdapter(attractionDetailViewModel)
         binding.recyclerViewPhotos.adapter = attractionPhotoAdapter
+
+
+        val snapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(binding.recyclerViewPhotos)
+
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        layoutManager.setItemPrefetchEnabled(true)
+        layoutManager.initialPrefetchItemCount = 1
+        binding.recyclerViewPhotos.layoutManager = layoutManager
+
+        attractionDetailViewModel.attractionImageLiveData.observe(viewLifecycleOwner) {
+                attractionPhotoAdapter.submitList(it)
+
+        }
 
         return binding.root
     }
@@ -76,5 +96,7 @@ class AttractionDetailFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+
+        private const val TAG = "AttractionDetailFragmen"
     }
 }

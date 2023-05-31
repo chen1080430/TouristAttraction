@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.mason.touristattractionshw.R
 import com.mason.touristattractionshw.databinding.AttractionItemBinding
 import com.mason.touristattractionshw.ui.attraction.AttractionListFragmentDirections
 import com.mason.touristattractionshw.ui.attraction.AttractionViewModel
@@ -28,8 +29,9 @@ class AttractionAdapter(val attractionViewModel: AttractionViewModel) : ListAdap
 
                 view.findNavController().navigate(navigationAttractionDetail)
             }
+            var height = binding.root.resources.getDimension(R.dimen.attraction_item_height).toInt()
             if (item.images.isNotEmpty()) {
-                Picasso.get().load(item.images[0].src).resize(300, 300).into(binding.imageViewPhoto)
+                Picasso.get().load(item.images[0].src).resize(0, height).onlyScaleDown().into(binding.imageViewPhoto)
             }
 
         }

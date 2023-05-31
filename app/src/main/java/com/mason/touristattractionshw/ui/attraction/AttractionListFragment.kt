@@ -39,7 +39,7 @@ class AttractionListFragment : Fragment() {
         binding.recyclerAttractions.adapter = attractionAdapter
 
         attractionViewModel.attractionListLiveData.observe(viewLifecycleOwner) {
-            Log.d(Companion.TAG, "XXXXX> onCreateView: attractions: $it")
+//            Log.d(Companion.TAG, "XXXXX> onCreateView: attractions: $it")
             Log.d(Companion.TAG, "XXXXX> onCreateView: attractions: ${it.size}")
 
             attractionAdapter.submitList(it)
@@ -64,7 +64,7 @@ class AttractionListFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_language -> {
-                attractionViewModel.initAttractions("en")
+                attractionViewModel.refreshAttractions("en")
             }
             else -> {}
         }
