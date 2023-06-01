@@ -1,6 +1,5 @@
 package com.mason.touristattractionshw.ui.attraction
 
-import android.graphics.pdf.PdfDocument.PageInfo
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,15 +9,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.mason.touristattractionshw.R
 import com.mason.touristattractionshw.databinding.FragmentAttractionDetailBinding
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_ATTRACTION_ID = "attraction_id"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -37,8 +30,7 @@ class AttractionDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param_id = it.getInt(ARG_ATTRACTION_ID)
-            param2 = it.getString(ARG_PARAM2)
-            Log.d(Companion.TAG, "XXXXX> onCreate: param_id = $param_id , title: $param2")
+            Log.d(Companion.TAG, "XXXX> onCreate: param_id = $param_id")
         }
     }
 
@@ -71,7 +63,7 @@ class AttractionDetailFragment : Fragment() {
         binding.recyclerViewPhotos.layoutManager = layoutManager
 
         attractionDetailViewModel.attractionImageLiveData.observe(viewLifecycleOwner) {
-                attractionPhotoAdapter.submitList(it)
+            attractionPhotoAdapter.submitList(it)
 
         }
 
@@ -79,21 +71,13 @@ class AttractionDetailFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AttractionDetailFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+        private const val ARG_ATTRACTION_ID = "attraction_id"
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             AttractionDetailFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_ATTRACTION_ID, param1)
-                    putString(ARG_PARAM2, param2)
                 }
             }
 

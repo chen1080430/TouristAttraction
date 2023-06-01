@@ -1,8 +1,6 @@
 package com.mason.touristattractionshw.ui.attraction
 
 import android.app.Application
-import android.provider.LiveFolders
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,7 +22,6 @@ class AttractionDetailViewModel(application: Application) : AndroidViewModel(app
     }
 
     fun getAttraction(id: Int) : Attraction {
-        Log.d(Companion.TAG, "XXXXX> getAttraction: attractionRespotory: ${attractionRepository}")
         return attractionRepository.getAttraction(id).apply {
             _attraction.value = this
         }

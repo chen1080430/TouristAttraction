@@ -13,20 +13,15 @@ import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.PagingData
 import com.mason.touristattractionshw.MainActivity
 import com.mason.touristattractionshw.R
 import com.mason.touristattractionshw.databinding.FragmentAttractionListBinding
-import com.mason.touristattractionshw.model.Attraction
 import com.mason.touristattractionshw.model.AttractionAdapter
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class AttractionListFragment : Fragment() {
 
-    private val attractionList = mutableListOf<Attraction>()
-    private var LANG: String = "zh-tw"
     private lateinit var attractionAdapter: AttractionAdapter
     private var _binding: FragmentAttractionListBinding? = null
 
@@ -47,22 +42,9 @@ class AttractionListFragment : Fragment() {
         init()
         binding.recyclerAttractions.adapter = attractionAdapter
 
-/*        lifecycleScope.launch {
-            attractionViewModel.fetchAttractionPageFlow(LANG).collectLatest { attraction ->
-                attractionAdapter.submitData(attraction)
-            }
-        }*/
-//        attractionViewModel.attractionListLiveData.observe(viewLifecycleOwner) {
-////            Log.d(Companion.TAG, "XXXXX> onCreateView: attractions: $it")
-//            Log.d(Companion.TAG, "XXXXX> onCreateView: attractions: ${it.size}")
-//
-//            attractionAdapter.submitList(it)
-//        }
-
         attractionViewModel.langLiveData.observe(viewLifecycleOwner) { newLang ->
-            Log.d(TAG, "XXXXX> onCreateView: newLang: $newLang")
-            LANG = newLang
-            fetchAttractionData(LANG)
+            Log.d(TAG, "XXXXX> onCreateView: new Language: $newLang")
+            fetchAttractionData(newLang)
         }
 
         return root
@@ -74,17 +56,13 @@ class AttractionListFragment : Fragment() {
             attractionAdapter.refresh()
             attractionFlow.collectLatest { attraction ->
                 attractionAdapter.submitData(attraction)
-
             }
-//            attractionAdapter.submitData(attractionFlow)
         }
     }
 
     private fun init() {
         setHasOptionsMenu(true)
         attractionAdapter = AttractionAdapter(attractionViewModel)
-//        addTestAttraction()
-//        attractionViewModel.initAttractions(LANG)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -98,7 +76,11 @@ class AttractionListFragment : Fragment() {
                 showPopupMenu()
                 var childCount = binding.recyclerAttractions.childCount
                 var itemCount = attractionAdapter.itemCount
-                Log.d(TAG, "XXXXX> onOptionsItemSelected: rv.childCount: $childCount , adapter.size: $itemCount , language: $LANG")
+                Log.d(
+                    TAG,
+                    "XXXXX> onOptionsItemSelected: rv.childCount: $childCount , " +
+                            "adapter.size: $itemCount"
+                )
             }
 
             else -> {}
@@ -114,54 +96,46 @@ class AttractionListFragment : Fragment() {
         ).apply {
             menuInflater.inflate(R.menu.language_menu, menu)
             setOnMenuItemClickListener { menuItem ->
+                var langSelect = "zh-tw"
                 when (menuItem.itemId) {
                     R.id.language_en -> {
-                        LANG = "en"
+                        langSelect = "en"
                     }
 
                     R.id.language_zh_tw -> {
-                        LANG = "zh-tw"
+                        langSelect = "zh-tw"
                     }
 
                     R.id.language_zh_cn -> {
-                        LANG = "zh-cn"
+                        langSelect = "zh-cn"
                     }
 
                     R.id.language_ja -> {
-                        LANG = "ja"
+                        langSelect = "ja"
                     }
 
                     R.id.language_ko -> {
-                        LANG = "ko"
+                        langSelect = "ko"
                     }
 
                     R.id.language_es -> {
-                        LANG = "es"
+                        langSelect = "es"
                     }
 
                     R.id.language_th -> {
-                        LANG = "th"
+                        langSelect = "th"
                     }
 
+                    // TODO server unavaliable
 //                    R.id.language_id -> {
-//                        LANG = "id"
+//                        langSelect = "id"
 //                    }
 
                     else -> false
                 }
-//                attractionViewModel.refreshAttractions(LANG)
-//                attractionViewModel.setQueryLanguage(LANG)
-                attractionViewModel.updateFlowWithNewLang(LANG)
-//                lifecycleScope.launch {
-//                    attractionAdapter.refresh()
-//
-//                }
-
-//                attractionAdapter.refresh()
+                attractionViewModel.updateFlowWithNewLang(langSelect)
                 true
-
             }
-
             show()
         }
     }
