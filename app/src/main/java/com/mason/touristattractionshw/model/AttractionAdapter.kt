@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,7 @@ import com.mason.touristattractionshw.ui.attraction.AttractionListFragmentDirect
 import com.mason.touristattractionshw.ui.attraction.AttractionViewModel
 import com.squareup.picasso.Picasso
 
-class AttractionAdapter(val attractionViewModel: AttractionViewModel) : ListAdapter<Attraction, AttractionAdapter.ViewHolder>(AttractionDiffCallback()){
+class AttractionAdapter(val attractionViewModel: AttractionViewModel) : PagingDataAdapter<Attraction, AttractionAdapter.ViewHolder>(AttractionDiffCallback()){
 
     class ViewHolder (val binding:AttractionItemBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(attractionViewModel: AttractionViewModel, item: Attraction) {
@@ -44,7 +45,7 @@ class AttractionAdapter(val attractionViewModel: AttractionViewModel) : ListAdap
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var item = getItem(position)
+        var item = getItem(position)!!
         holder.bind(attractionViewModel,  item)
     }
 
@@ -56,7 +57,7 @@ class AttractionAdapter(val attractionViewModel: AttractionViewModel) : ListAdap
 
 class AttractionDiffCallback : DiffUtil.ItemCallback<Attraction>(){
     override fun areItemsTheSame(oldItem: Attraction, newItem: Attraction): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.name == newItem.name
     }
 
     override fun areContentsTheSame(oldItem: Attraction, newItem: Attraction): Boolean {

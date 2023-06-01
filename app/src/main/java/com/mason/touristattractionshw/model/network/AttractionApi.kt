@@ -13,7 +13,7 @@ interface AttractionApi {
 
     @Headers("accept: application/json")
     @GET("open-api/{lang}/Attractions/All")
-    suspend fun fetchAttraction(@Path("lang") lang : String, @Query("path") path : Int) : AttractionResponse
+    suspend fun fetchAttraction(@Path("lang") lang : String, @Query("page") page : Int) : AttractionResponse
 
 
     companion object {
