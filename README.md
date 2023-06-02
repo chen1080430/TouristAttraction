@@ -2,9 +2,9 @@
 Tourist Attraction
 
 
-根據 https://github.com/chen1080430/TouristAttraction 實作
+根據 https://www.travel.taipei/open-api/zh-tw/Attractions/All 實作
 
-取得全部景點，透過recyclerView顯示在主頁面上。
+取得選取語系全部景點，透過recyclerView顯示在主頁面上。
 
 並且在點擊每個景點後，打開新的頁面顯示景點詳細資訊，同時可以直接透過url開啟webview瀏覽器顯示官方網頁。
 
