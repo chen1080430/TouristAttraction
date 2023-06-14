@@ -1,17 +1,16 @@
 package com.mason.touristattractionshw.model
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mason.touristattractionshw.R
 import com.mason.touristattractionshw.databinding.AttractionItemBinding
 import com.mason.touristattractionshw.ui.attraction.AttractionListFragmentDirections
 import com.mason.touristattractionshw.ui.attraction.AttractionViewModel
+import com.mason.touristattractionshw.util.LogUtil
 import com.squareup.picasso.Picasso
 
 class AttractionAdapter(val attractionViewModel: AttractionViewModel) : PagingDataAdapter<Attraction, AttractionAdapter.ViewHolder>(AttractionDiffCallback()){
@@ -24,7 +23,7 @@ class AttractionAdapter(val attractionViewModel: AttractionViewModel) : PagingDa
                 executePendingBindings()
             }
             binding.attractionLayout.setOnClickListener { view ->
-                Log.d(TAG, "XXXXX> bind: navigation to detail attraciton: ${item.id}")
+                LogUtil.d(TAG, "XXXXX> bind: navigation to detail attraciton: ${item.id}")
                 var navigationAttractionDetail =
                     AttractionListFragmentDirections.navigationAttractionDetail(item.id)
 

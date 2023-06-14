@@ -1,7 +1,6 @@
 package com.mason.touristattractionshw.ui.attraction
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.Menu
@@ -17,6 +16,7 @@ import com.mason.touristattractionshw.MainActivity
 import com.mason.touristattractionshw.R
 import com.mason.touristattractionshw.databinding.FragmentAttractionListBinding
 import com.mason.touristattractionshw.model.AttractionAdapter
+import com.mason.touristattractionshw.util.LogUtil
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -43,7 +43,7 @@ class AttractionListFragment : Fragment() {
         binding.recyclerAttractions.adapter = attractionAdapter
 
         attractionViewModel.langLiveData.observe(viewLifecycleOwner) { newLang ->
-            Log.d(TAG, "XXXXX> onCreateView: new Language: $newLang")
+            LogUtil.d(TAG, "XXXXX> onCreateView: new Language: $newLang")
             fetchAttractionData(newLang)
         }
 
@@ -76,7 +76,7 @@ class AttractionListFragment : Fragment() {
                 showPopupMenu()
                 var childCount = binding.recyclerAttractions.childCount
                 var itemCount = attractionAdapter.itemCount
-                Log.d(
+                LogUtil.d(
                     TAG,
                     "XXXXX> onOptionsItemSelected: rv.childCount: $childCount , " +
                             "adapter.size: $itemCount"
