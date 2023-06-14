@@ -1,11 +1,11 @@
 package com.mason.touristattractionshw.model.network
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.mason.touristattractionshw.model.Attraction
+import com.mason.touristattractionshw.util.LogUtil
 import kotlinx.coroutines.flow.Flow
 
 class AttractionRepository(val attractionApi: AttractionApi) {
@@ -13,8 +13,23 @@ class AttractionRepository(val attractionApi: AttractionApi) {
     var attractionPagingSource: AttractionPagingSource? = null
 
     fun fetchAttractionPageFlow(lang: String): Flow<PagingData<Attraction>> {
-        attractionPagingSource =
-            AttractionPagingSource(attractionApi, lang)
+        if (attractionPagingSource == null || lang != attractionPagingSource!!.lang) {
+            attractionPagingSource?.let {
+
+                LogUtil.d(TAG, "XXXXX> fetchAttractionPageFlow: old.language: ${it.lang} , <-> new: $lang")
+            } ?.run {
+                LogUtil.d(
+                    TAG,
+                    "XXXXX> fetchAttractionPageFlow: new a attractionPagingSource, old: $attractionPagingSource"
+                )
+            }
+            attractionPagingSource =
+                AttractionPagingSource(attractionApi, lang)
+        }
+        LogUtil.d(
+            TAG,
+            "XXXXX> fetchAttractionPageFlow: lang: $lang , attractionPagingSource: $attractionPagingSource"
+        )
         return Pager(
             config = PagingConfig(pageSize = 30, initialLoadSize = 30, enablePlaceholders = false),
             pagingSourceFactory = { attractionPagingSource!! }
@@ -22,7 +37,7 @@ class AttractionRepository(val attractionApi: AttractionApi) {
     }
 
     fun getAttraction(id: Int): Attraction {
-        Log.d(
+        LogUtil.d(
             TAG,
             "XXXXX> getAttraction: id: $id , " +
                     "attractionRespotory.size: ${attractionPagingSource?.allAttractionList?.size}"

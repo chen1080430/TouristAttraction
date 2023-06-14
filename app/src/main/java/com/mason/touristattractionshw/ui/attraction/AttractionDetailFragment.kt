@@ -1,7 +1,6 @@
 package com.mason.touristattractionshw.ui.attraction
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.mason.touristattractionshw.R
 import com.mason.touristattractionshw.databinding.FragmentAttractionDetailBinding
+import com.mason.touristattractionshw.util.LogUtil
 
 /**
  * A simple [Fragment] subclass.
@@ -30,7 +30,7 @@ class AttractionDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param_id = it.getInt(ARG_ATTRACTION_ID)
-            Log.d(Companion.TAG, "XXXX> onCreate: param_id = $param_id")
+            LogUtil.d(Companion.TAG, "XXXX> onCreate: param_id = $param_id")
         }
     }
 
