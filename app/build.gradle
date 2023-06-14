@@ -12,8 +12,8 @@ android {
         applicationId "com.mason.touristattractionshw"
         minSdk 30
         targetSdk 33
-        versionCode 1003
-        versionName "v1.03"
+        versionCode 1004
+        versionName "v1.04"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
