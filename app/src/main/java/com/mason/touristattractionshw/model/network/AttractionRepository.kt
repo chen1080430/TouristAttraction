@@ -31,7 +31,7 @@ class AttractionRepository(val attractionApi: AttractionApi) {
             "XXXXX> fetchAttractionPageFlow: lang: $lang , attractionPagingSource: $attractionPagingSource"
         )
         return Pager(
-            config = PagingConfig(pageSize = 30, initialLoadSize = 30, enablePlaceholders = false),
+            config = PagingConfig(pageSize = 30, initialLoadSize = 30, enablePlaceholders = true),
             pagingSourceFactory = { attractionPagingSource!! }
         ).flow
     }
@@ -44,7 +44,8 @@ class AttractionRepository(val attractionApi: AttractionApi) {
         )
         return attractionPagingSource?.allAttractionList?.get(id) ?: Attraction(
             id = -1,
-            name = "empty0"
+            name = "empty0",
+            url = "https://www.google.com/"
         )
     }
 

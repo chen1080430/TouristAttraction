@@ -125,6 +125,9 @@ class AttractionListFragment : Fragment() {
                     R.id.language_th -> {
                         langSelect = "th"
                     }
+                    R.id.language_vi -> {
+                        langSelect = "vi"
+                    }
 
                     // TODO server unavaliable
 //                    R.id.language_id -> {
