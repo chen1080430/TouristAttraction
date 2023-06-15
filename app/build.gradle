@@ -9,7 +9,9 @@ android {
     compileSdk 33
 
     packagingOptions {
-        pickFirst 'META-INF/LICENSE.md'
+//        pickFirst 'META-INF/LICENSE.md'
+        exclude 'META-INF/LICENSE.md'
+        exclude 'META-INF/LICENSE-notice.md'
     }
 
     defaultConfig {
@@ -41,6 +43,14 @@ android {
     }
     dataBinding {
         enable true
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+        packagingOptions {
+            jniLibs {
+                useLegacyPackaging = true
+            }
+        }
     }
 }
 
@@ -75,10 +85,12 @@ dependencies {
 
     androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.4.0'
     debugImplementation("androidx.fragment:fragment-testing:1.6.0")
 
-//    testImplementation "io.mockk:mockk:1.13.5"
-//    androidTestImplementation "io.mockk:mockk-android:1.13.5"
+    testImplementation "io.mockk:mockk:1.13.5"
+    androidTestImplementation "io.mockk:mockk-android:1.12.3"
+//    androidTestImplementation "io.mockk:mockk:1.13.5"
+
 
 }

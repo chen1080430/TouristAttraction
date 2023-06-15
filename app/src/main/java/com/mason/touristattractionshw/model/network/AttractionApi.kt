@@ -3,6 +3,8 @@ package com.mason.touristattractionshw.model.network
 import com.mason.touristattractionshw.model.AttractionResponse
 import com.mason.touristattractionshw.util.LogUtil
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -18,6 +20,9 @@ interface AttractionApi {
     @GET("open-api/{lang}/Attractions/All")
     suspend fun fetchAttraction(@Path("lang") lang : String, @Query("page") page : Int) : AttractionResponse
 
+    @Headers("accept: application/json")
+    @GET("open-api/{lang}/Attractions/All")
+    suspend fun fetchAttractionResponse(@Path("lang") lang : String, @Query("page") page : Int) : Response<AttractionResponse>
 
     companion object {
         val base_url = "https://www.travel.taipei/"
