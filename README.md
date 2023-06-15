@@ -27,6 +27,13 @@ Tourist Attraction
 
 ![CleanShot 2023-06-01 at 16 25 30](https://github.com/chen1080430/TouristAttraction/assets/32159412/e2edc277-c2a6-494d-958c-ad1fcf07ac64)
 
+test:
+
+![CleanShot 2023-06-15 at 18 26 16](https://github.com/chen1080430/TouristAttraction/assets/32159412/16bf4542-2dce-42c7-881e-572cb1db6389)
+
+![CleanShot 2023-06-15 at 18 19 03](https://github.com/chen1080430/TouristAttraction/assets/32159412/b5f27af1-5ce5-4b6f-97f0-5e9119ae26f7)
+
+
 截圖：
 
 ![screenshot_sutcase2](https://github.com/chen1080430/TouristAttraction/assets/32159412/bcb4cee3-1d10-41b1-bd23-2620765f08e5)
