@@ -6,7 +6,7 @@ import java.lang.Exception
 
 class LogUtil {
     companion object {
-        val SHOW = false
+        val SHOW = true
 //        val SHOW = !BuildConfig.DEBUG
 
         fun d(TAG: String, s: String) {

@@ -13,15 +13,15 @@ class AttractionDetailViewModel(application: Application) : AndroidViewModel(app
 
     val attractionRepository = AttractionRepository.getRepository()
 
-    private var _attraction : MutableLiveData<Attraction> = MutableLiveData()
-    val attraction : LiveData<Attraction>
+    private var _attraction: MutableLiveData<Attraction> = MutableLiveData()
+    val attraction: LiveData<Attraction>
         get() = _attraction
 
-    var attractionImageLiveData :LiveData<List<AttractionImage>> = _attraction.map { attraction ->
+    var attractionImageLiveData: LiveData<List<AttractionImage>> = _attraction.map { attraction ->
         attraction.images
     }
 
-    fun getAttraction(id: Int) : Attraction {
+    fun getAttraction(id: Int): Attraction {
         return attractionRepository.getAttraction(id).apply {
             _attraction.value = this
         }

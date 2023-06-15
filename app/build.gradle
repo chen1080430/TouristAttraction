@@ -8,6 +8,10 @@ android {
     namespace 'com.mason.touristattractionshw'
     compileSdk 33
 
+    packagingOptions {
+        pickFirst 'META-INF/LICENSE.md'
+    }
+
     defaultConfig {
         applicationId "com.mason.touristattractionshw"
         minSdk 30
@@ -16,6 +20,7 @@ android {
         versionName "v1.04"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -59,6 +64,21 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     // picasso
-    implementation 'com.squareup.picasso:picasso:2.71828'
+//    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+
+    def nav_version = "2.5.3"
+
+    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    debugImplementation("androidx.fragment:fragment-testing:1.6.0")
+
+//    testImplementation "io.mockk:mockk:1.13.5"
+//    androidTestImplementation "io.mockk:mockk-android:1.13.5"
 
 }
